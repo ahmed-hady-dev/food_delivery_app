@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Delivery App',
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: const LoginPage(),
+      home: LoginPage(
+        onTap: () {},
+      ),
     );
   }
 }
