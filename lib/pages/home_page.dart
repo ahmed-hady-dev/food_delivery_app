@@ -6,6 +6,7 @@ import 'package:food_delivery_app/components/my_sliver_app_bar.dart';
 import 'package:food_delivery_app/components/my_tab_bar.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:food_delivery_app/pages/food_page.dart';
 import 'package:provider/provider.dart';
 
 import '../components/my_drawer.dart';
@@ -43,10 +44,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          final myFood = categoryMenu[index];
+          final food = categoryMenu[index];
           return MyFoodTile(
-            food: myFood,
-            onTap: () {},
+            food: food,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodPage(food: food),
+              ),
+            ),
           );
         },
       );
