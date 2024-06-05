@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Delivery App',
+      debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: const LoginOrRegister(),
     );
