@@ -2,11 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_current_location.dart';
 import 'package:food_delivery_app/components/my_description_box.dart';
 import 'package:food_delivery_app/components/my_sliver_app_bar.dart';
+import 'package:food_delivery_app/components/my_tab_bar.dart';
 
 import '../components/my_drawer.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +34,7 @@ class HomePage extends StatelessWidget {
       body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 MySliverAppBar(
-                  title: const Text('Title', style: TextStyle()),
+                  title: MyTabBar(tabController: _tabController),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -24,14 +43,19 @@ class HomePage extends StatelessWidget {
                         endIndent: 25,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                      MyCurrentLocation(),
-                      MyDescriptionBox(),
+                      const MyCurrentLocation(),
+                      const MyDescriptionBox(),
                     ],
                   ),
                 ),
               ],
-          body: Container(
-            color: Colors.red,
+          body: TabBarView(
+            controller: _tabController,
+            children: const [
+              Text('first', style: TextStyle()),
+              Text('second', style: TextStyle()),
+              Text('third', style: TextStyle()),
+            ],
           )),
     );
   }
